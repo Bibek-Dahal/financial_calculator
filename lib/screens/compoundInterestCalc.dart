@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 
+import 'package:intl/intl.dart';
+
 class compIntCalc extends StatefulWidget {
   const compIntCalc({Key? key}) : super(key: key);
 
@@ -20,6 +22,16 @@ class _compIntCalcState extends State<compIntCalc> {
   String maturityValue = "";
   bool isCalculated = false;
 
+  String dropdownValue = 'Annually';
+  final drowDownItems = [
+    'Annually',
+    'Semiannually',
+    'Quarterly',
+    'Monthly',
+    'Weekly',
+    'Daily'
+  ];
+
   final _formKey = GlobalKey<FormState>();
   final principalAmtController = TextEditingController();
   final monthlyDepositController = TextEditingController();
@@ -28,9 +40,10 @@ class _compIntCalcState extends State<compIntCalc> {
   final annualInterestRateController = TextEditingController();
   final compoundingAmtController = TextEditingController();
 
+  NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
   void calculateCompInt() {
     try {
-      var interestRate = {
+      var i = {
         'Daily': (annualInterestRate / 100) / 365,
         'Weekly': (annualInterestRate / 100) / 52,
         'Monthly': (annualInterestRate / 100) / 12,
@@ -39,27 +52,38 @@ class _compIntCalcState extends State<compIntCalc> {
         'Annually': annualInterestRate / 100
       };
 
-      var interest = interestRate[compounding];
-      print('interest $interest');
-      print((pow((1 + interest!), period) - 1) / interest);
-      // var x = 1 + interest!;
-      var fvPrincipal = principalAmt * (pow((1 + interest), period));
-      var maturityValueBefore = fvPrincipal +
-          (monthlyDeposit * (pow((1 + interest), period) - 1) / interest);
-      var totalPrincipalBefore = principalAmt + monthlyDeposit * period;
+      var m = {
+        'Daily': 365,
+        'Weekly': 52,
+        'Monthly': 12,
+        'Quarterly': 4,
+        'Semiannually': 2,
+        'Annually': 1
+      };
+
+      print(m[compounding]);
+      print(i[compounding]);
+      var fvPrincipal =
+          principalAmt * (pow((1 + i[compounding]!), period * m[compounding]!));
+      print('fvPrincipal: $fvPrincipal');
+
+      var fvAnnuity = ((monthlyDeposit * 12) / m[compounding]!) *
+          ((pow((1 + i[compounding]!), m[compounding]!) - 1) / i[compounding]!);
+      print('fvannuity $fvAnnuity');
 
       setState(() {
-        // print(test);
-        maturityValue = maturityValueBefore.toStringAsFixed(2);
-
-        totalPrincipal = totalPrincipalBefore.toStringAsFixed(2);
-
-        interestAmount =
-            (maturityValueBefore - totalPrincipalBefore).toStringAsFixed(2);
+        maturityValue = myFormat
+            .format(double.parse((fvPrincipal + fvAnnuity).toStringAsFixed(2)));
+        totalPrincipal = myFormat.format(double.parse(
+            (principalAmt + period * 12 * monthlyDeposit).toStringAsFixed(2)));
+        interestAmount = ((fvPrincipal + fvAnnuity) -
+                (principalAmt + period * 12 * monthlyDeposit))
+            .toStringAsFixed(2);
 
         isCalculated = true;
       });
     } catch (error) {
+      print(error);
       print('error occour');
     }
   }
@@ -91,7 +115,7 @@ class _compIntCalcState extends State<compIntCalc> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter princilap amount';
-                      } else if (double.parse(value) < 1) {
+                      } else if (double.parse(value) < 0) {
                         return 'Please enter appropriate princilap amount';
                       } else {
                         return null;
@@ -141,13 +165,13 @@ class _compIntCalcState extends State<compIntCalc> {
                     controller: periodController,
                     decoration: const InputDecoration(
                       border: UnderlineInputBorder(),
-                      labelText: 'Enter Periods',
+                      labelText: 'Enter Periods(years)',
                     ),
                     keyboardType: TextInputType.number,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter periods(months)';
+                        return 'Please enter periods(years)';
                       } else if (double.parse(value) == 0) {
                         return 'Please enter appropriate period';
                       } else {
@@ -157,22 +181,24 @@ class _compIntCalcState extends State<compIntCalc> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
-                  child: TextFormField(
-                    controller: compoundingController,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      labelText: 'Enter Compounding',
-                    ),
-                    // keyboardType: TextInputType.number,
-                    // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter Compounding';
-                      } else {
-                        return null;
-                      }
+                  padding: EdgeInsets.only(top: 3.0, bottom: 3.0),
+                  child: DropdownButtonFormField(
+                    value: dropdownValue,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                      });
                     },
+                    items: drowDownItems
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      );
+                    }).toList(),
                   ),
                 ),
                 Padding(
@@ -189,7 +215,7 @@ class _compIntCalcState extends State<compIntCalc> {
                           period = int.parse(periodController.text);
                           annualInterestRate =
                               double.parse(annualInterestRateController.text);
-                          compounding = compoundingController.text;
+                          compounding = dropdownValue;
                         });
                         calculateCompInt();
                       }
