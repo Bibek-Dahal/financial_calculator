@@ -67,6 +67,16 @@ class _EmiCalcState extends State<EmiCalc> {
   }
 
   @override
+  void dispose() {
+    loanAmountController.dispose();
+    interestRateController.dispose();
+    yearsController.dispose();
+    monthController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

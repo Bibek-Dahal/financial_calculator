@@ -89,6 +89,18 @@ class _compIntCalcState extends State<compIntCalc> {
   }
 
   @override
+  void dispose() {
+    principalAmtController.dispose();
+    monthlyDepositController.dispose();
+    periodController.dispose();
+    compoundingController.dispose();
+    annualInterestRateController.dispose();
+    compoundingAmtController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
