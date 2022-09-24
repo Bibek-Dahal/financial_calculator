@@ -34,19 +34,19 @@ class _IrrState extends State<Irr> {
       cf.add(double.parse(value));
     });
 
-    const double LOW_RATE = -0.5;
-    const double HIGH_RATE = 0.5;
+    final LOW_RATE = -0.85;
+    final HIGH_RATE = pow(10.0, 50);
     const double MAX_ITERATION = 1000;
     const double PRECISION_REQ = 0.00000001;
     int i = 0, j = 0;
     double m = 0.0;
     double old = 0.00;
     double new1 = 0.00;
-    double oldguessRate = LOW_RATE;
-    double newguessRate = LOW_RATE;
-    double guessRate = LOW_RATE;
-    double lowGuessRate = LOW_RATE;
-    double highGuessRate = HIGH_RATE;
+    var oldguessRate = LOW_RATE;
+    var newguessRate = LOW_RATE;
+    var guessRate = LOW_RATE;
+    var lowGuessRate = LOW_RATE;
+    var highGuessRate = HIGH_RATE;
     double npv = 0.0;
 
     double denom = 0.0;
@@ -85,6 +85,7 @@ class _IrrState extends State<Irr> {
   }
 
   void calNPV(cashFlows, IRR) {
+    print('IRR: $IRR');
     double netPV = 0;
     for (int j = 0; j < cashFlows.length; j++) {
       netPV += (cashFlows[j]!) / pow(1 + MARR, j);
@@ -144,6 +145,18 @@ class _IrrState extends State<Irr> {
                           ),
                           ElevatedButton(
                             onPressed: () {
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      const Irr(),
+                                ),
+                              );
+                            },
+                            child: Text('Reset'),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
                               setState(() {
                                 paymentsNum++;
                               });
@@ -156,7 +169,7 @@ class _IrrState extends State<Irr> {
                         Column(
                           children: [
                             Text(
-                                'IRR: ${currentIRR < 0 ? 'Unable to calculate' : currentIRR}%'),
+                                'IRR: ${currentIRR <= -85 ? 'Unable To Calculate IRR' : currentIRR}%'),
                             Text('NPV: $netPresentValue')
                           ],
                         )
