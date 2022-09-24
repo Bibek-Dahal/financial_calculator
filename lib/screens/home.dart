@@ -1,6 +1,7 @@
 import 'package:financial_calc/screens/compoundInterestCalc.dart';
 import 'package:financial_calc/screens/emiCalc.dart';
 import 'package:financial_calc/screens/irrCalc.dart';
+import 'package:financial_calc/screens/mirrCalc.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -62,6 +63,19 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(8),
                 color: Colors.blue[200],
                 child: const Text('IRR'),
+              ),
+            ),
+          ),
+          Container(
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MIRR()),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.purpleAccent[200],
+                child: const Text('MIRR'),
               ),
             ),
           ),
