@@ -40,7 +40,7 @@ void calculateTax() {
       NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
       double income = ((double.parse(monthlySalary) * 12 + double.parse(bonus)));
       double tsalary = income;
-      if (relationship == 'Married'){
+      if (relationship == 'Unmarried'){
       var m = {
         500000.0 : 0.01,
         200000.0: 0.1,
@@ -91,6 +91,13 @@ void calculateTax() {
     }
   }
 
+  @override
+  void dispose() {
+    salaryController.dispose();
+    taxController.dispose();
+    bonusController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
