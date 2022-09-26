@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
-
+import 'dart:ffi';
 import 'package:intl/intl.dart';
 
 class compIntCalc extends StatefulWidget {

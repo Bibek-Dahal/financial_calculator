@@ -4,6 +4,7 @@ import 'package:financial_calc/screens/irrCalc.dart';
 import 'package:financial_calc/screens/mirrCalc.dart';
 import 'package:financial_calc/screens/multipleBcRatio.dart';
 import 'package:flutter/material.dart';
+import 'dart:ffi';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: const Text('EMI'),
+        title: const Text('FinCalc'),
       ),
       body: GridView.count(
         primary: false,
