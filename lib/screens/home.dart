@@ -99,6 +99,32 @@ class _HomeState extends State<Home> {
             child: GestureDetector(
               onTap: () => Navigator.push(
                 context,
+                MaterialPageRoute(builder: (context) => const Pbp()),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.blueGrey[200],
+                child: const Text('Pay Back Period'),
+              ),
+            ),
+          ),
+          Container(
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TaxCalc()),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.blueGrey[200],
+                child: const Text('Income Tax Calculator'),
+              ),
+            ),
+          ),
+          Container(
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                context,
                 MaterialPageRoute(builder: (context) => const BcRatio()),
               ),
               child: Container(
