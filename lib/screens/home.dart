@@ -1,5 +1,8 @@
 import 'package:financial_calc/screens/compoundInterestCalc.dart';
 import 'package:financial_calc/screens/emiCalc.dart';
+import 'package:financial_calc/screens/irrCalc.dart';
+import 'package:financial_calc/screens/mirrCalc.dart';
+import 'package:financial_calc/screens/multipleBcRatio.dart';
 import 'package:financial_calc/screens/incomeTaxCacl.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_calc/screens/payBackCacl.dart';
@@ -57,12 +60,25 @@ class _HomeState extends State<Home> {
             child: GestureDetector(
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const TaxCalc()),
+                MaterialPageRoute(builder: (context) => const Irr()),
               ),
               child: Container(
                 padding: const EdgeInsets.all(8),
-                color: Color.fromARGB(255, 203, 128, 128),
-                child: const Text('Income Tax Calculator'),
+                color: Colors.blue[200],
+                child: const Text('IRR'),
+              ),
+            ),
+          ),
+          Container(
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MIRR()),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.purpleAccent[200],
+                child: const Text('MIRR'),
               ),
             ),
           ),
@@ -74,8 +90,34 @@ class _HomeState extends State<Home> {
               ),
               child: Container(
                 padding: const EdgeInsets.all(8),
-                color: Color.fromARGB(255, 165, 8, 218),
-                child: const Text('Pay Back Period Calculator'),
+                color: Colors.blueGrey[200],
+                child: const Text('Pay Back Period'),
+              ),
+            ),
+          ),
+          Container(
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const TaxCalc()),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.blueGrey[200],
+                child: const Text('Income Tax Calculator'),
+              ),
+            ),
+          ),
+          Container(
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const BcRatio()),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.purpleAccent[200],
+                child: const Text('BC'),
               ),
             ),
           ),

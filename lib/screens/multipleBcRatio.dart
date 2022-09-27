@@ -88,7 +88,7 @@ class _BcRatioState extends State<BcRatio> {
                 cashFlowAfterCalc: cashFlowAfterCalc,
                 selectedProject: selectedProject)),
       );
-      // print('select project: ${compareProject(indCashFlows)}');
+      print('select project: ${compareProject(indCashFlows)}');
     } catch (e) {}
   }
 
@@ -135,12 +135,12 @@ class _BcRatioState extends State<BcRatio> {
       }
     }
 
-    return selectedProject;
+    return indCashFlows[selectedProject]['index'];
   }
 
   void handleNumOfProjects(value) {
     try {
-      if (double.parse(value) >= 1) {
+      if (double.parse(value) >= 1 && double.parse(value) <= 50) {
         setState(() {
           numOfProjects = int.parse(value);
         });
@@ -152,7 +152,7 @@ class _BcRatioState extends State<BcRatio> {
 
   void handleNumOfYears(value) {
     try {
-      if (double.parse(value) >= 2) {
+      if (double.parse(value) >= 2 && double.parse(value) <= 50) {
         // print('Year handler called');
         setState(() {
           numOfYears = int.parse(value) + 1;
