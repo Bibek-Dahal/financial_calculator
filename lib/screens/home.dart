@@ -1,10 +1,8 @@
 import 'package:financial_calc/screens/compoundInterestCalc.dart';
 import 'package:financial_calc/screens/emiCalc.dart';
-import 'package:financial_calc/screens/irrCalc.dart';
-import 'package:financial_calc/screens/mirrCalc.dart';
-import 'package:financial_calc/screens/multipleBcRatio.dart';
+import 'package:financial_calc/screens/incomeTaxCacl.dart';
 import 'package:flutter/material.dart';
-import 'dart:ffi';
+import 'package:financial_calc/screens/payBackCacl.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -59,12 +57,12 @@ class _HomeState extends State<Home> {
             child: GestureDetector(
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Irr()),
+                MaterialPageRoute(builder: (context) => const TaxCalc()),
               ),
               child: Container(
                 padding: const EdgeInsets.all(8),
-                color: Colors.blue[200],
-                child: const Text('IRR'),
+                color: Color.fromARGB(255, 203, 128, 128),
+                child: const Text('Income Tax Calculator'),
               ),
             ),
           ),
@@ -72,25 +70,12 @@ class _HomeState extends State<Home> {
             child: GestureDetector(
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const MIRR()),
+                MaterialPageRoute(builder: (context) => const Pbp()),
               ),
               child: Container(
                 padding: const EdgeInsets.all(8),
-                color: Colors.purpleAccent[200],
-                child: const Text('MIRR'),
-              ),
-            ),
-          ),
-          Container(
-            child: GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const BcRatio()),
-              ),
-              child: Container(
-                padding: const EdgeInsets.all(8),
-                color: Colors.purpleAccent[200],
-                child: const Text('BC'),
+                color: Color.fromARGB(255, 165, 8, 218),
+                child: const Text('Pay Back Period Calculator'),
               ),
             ),
           ),
