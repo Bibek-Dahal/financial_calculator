@@ -1,4 +1,5 @@
 import 'package:financial_calc/screens/compoundInterestCalc.dart';
+import 'package:financial_calc/screens/depreciation.dart';
 import 'package:financial_calc/screens/emiCalc.dart';
 import 'package:financial_calc/screens/irrCalc.dart';
 import 'package:financial_calc/screens/mirrCalc.dart';
@@ -118,6 +119,19 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(8),
                 color: Colors.purpleAccent[200],
                 child: const Text('BC'),
+              ),
+            ),
+          ),
+          Container(
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Depreciation()),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                color: Colors.yellow[200],
+                child: const Text('Depreciation'),
               ),
             ),
           ),
