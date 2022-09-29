@@ -1,6 +1,8 @@
 import 'package:financial_calc/screens/compoundInterestCalc.dart';
 import 'package:financial_calc/screens/emiCalc.dart';
 import 'package:financial_calc/screens/incomeTaxCacl.dart';
+import 'package:financial_calc/screens/sensitivity.dart';
+import 'package:financial_calc/screens/sensitivitychart.dart';
 import 'package:flutter/material.dart';
 import 'package:financial_calc/screens/payBackCacl.dart';
 
@@ -76,6 +78,19 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(8),
                 color: Color.fromARGB(255, 165, 8, 218),
                 child: const Text('Pay Back Period Calculator'),
+              ),
+            ),
+          ),
+          Container(
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Sensitivity()),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                color: Color.fromARGB(255, 17, 253, 206),
+                child: const Text('Sensitivity'),
               ),
             ),
           ),
