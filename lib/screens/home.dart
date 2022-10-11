@@ -1,3 +1,5 @@
+import 'package:financial_calc/screens/breakeven.dart';
+import 'package:financial_calc/screens/breakevenchart.dart';
 import 'package:financial_calc/screens/compoundInterestCalc.dart';
 import 'package:financial_calc/screens/emiCalc.dart';
 import 'package:financial_calc/screens/incomeTaxCacl.dart';
@@ -91,6 +93,19 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(8),
                 color: Color.fromARGB(255, 17, 253, 206),
                 child: const Text('Sensitivity'),
+              ),
+            ),
+          ),
+          Container(
+            child: GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Breakeven()),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                color: Color.fromARGB(255, 214, 11, 197),
+                child: const Text('BreakEven'),
               ),
             ),
           ),
