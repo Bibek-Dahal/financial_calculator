@@ -33,8 +33,10 @@ class _SensitivityChartState extends State<SensitivityChart> {
               title: Text('Sensitivity Analysis SpiderPlot'),
             ),
             body: SfCartesianChart(
+                plotAreaBorderWidth: 2,
+                plotAreaBorderColor: Colors.black,
               // title: ChartTitle(text: 'Sensitivity Analysis Spiderplot'),
-              legend: Legend(isVisible: true),
+              legend: Legend(isVisible: true,overflowMode: LegendItemOverflowMode.wrap),
               tooltipBehavior: _tooltipBehavior,
               series: <ChartSeries>[
                 LineSeries<SalesData, double>(
