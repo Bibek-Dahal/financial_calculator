@@ -1,5 +1,6 @@
 import 'package:financial_calc/screens/compoundInterestCalc.dart';
 import 'package:financial_calc/screens/emiCalc.dart';
+import 'package:financial_calc/screens/home1.dart';
 import 'package:financial_calc/screens/home.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Home(),
+      home: const HomePageWidget(),
     );
   }
 }
