@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'dart:math';
+import 'package:financial_calc/router/route_names.dart';
 import 'package:financial_calc/screens/displayBCratioResult.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -81,13 +82,16 @@ class _BcRatioState extends State<BcRatio> {
 
       // });
 
-      Navigator.push(
-        context,
-        MaterialPageRoute<void>(
-            builder: (BuildContext context) => DisplayBCRatio(
-                cashFlowAfterCalc: cashFlowAfterCalc,
-                selectedProject: selectedProject)),
-      );
+      Navigator.pushNamed(context, RouteName.bcRatioResultScreen, arguments: {
+        'cashFlowAfterCalc': cashFlowAfterCalc,
+        'selectedProject': selectedProject
+      }
+
+          // MaterialPageRoute<void>(
+          //     builder: (BuildContext context) => DisplayBCRatio(
+          //         cashFlowAfterCalc: cashFlowAfterCalc,
+          //         selectedProject: selectedProject)),
+          );
       print('select project: ${compareProject(indCashFlows)}');
     } catch (e) {}
   }

@@ -4,14 +4,14 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:financial_calc/screens/sensitivitychart.dart';
 import 'package:financial_calc/screens/breakevenchart.dart';
 
-class Breakeven extends StatefulWidget {
-  const Breakeven({Key? key}) : super(key: key);
+class BreakEven extends StatefulWidget {
+  const BreakEven({Key? key}) : super(key: key);
 
   @override
-  State<Breakeven>createState() => _BreakevenState();
+  State<BreakEven> createState() => _BreakEvenState();
 }
 
-class _BreakevenState extends State<Breakeven> {
+class _BreakEvenState extends State<BreakEven> {
   double rate = 0.0;
   int years = 0;
   Map calculations = <String, dynamic>{};
@@ -25,7 +25,7 @@ class _BreakevenState extends State<Breakeven> {
   // double pcsav = 0.0;
   // double pcexp = 0.0;
   // double pcyear = 0.0;
-  
+
   double fixedCost = 0.0;
   double variableCost = 0.0;
   double salesPrice = 0.0;
@@ -35,7 +35,6 @@ class _BreakevenState extends State<Breakeven> {
   double bepcost = 0.0;
 
   String bepoint = "";
-
 
   String dropdownValue = 'SensitivityAnalysis';
   final drowDownItems = ['SensitivityAnalysis', 'SpiderPlot'];
@@ -47,9 +46,11 @@ class _BreakevenState extends State<Breakeven> {
 
   void breakevenpointCalc() {
     List tables = [];
-    breakevenpoint = (fixedCost)/(salesPrice-variableCost);
+    breakevenpoint = (fixedCost) / (salesPrice - variableCost);
     bepcost = breakevenpoint * salesPrice;
-    for (double x = 0; x <= breakevenpoint.ceil()*2; x += (breakevenpoint.ceil()/5)) {
+    for (double x = 0;
+        x <= breakevenpoint.ceil() * 2;
+        x += (breakevenpoint.ceil() / 5)) {
       totalcost = fixedCost + variableCost * x;
       totalrevenue = x * salesPrice;
       calculations = {
@@ -58,7 +59,7 @@ class _BreakevenState extends State<Breakeven> {
         'totalcost': double.parse(totalcost.toStringAsFixed(2)),
         'totalrevenue': double.parse(totalrevenue.toStringAsFixed(2)),
         'bepcost': double.parse(bepcost.toStringAsFixed(2)),
-        'bepoint':double.parse(breakevenpoint.toStringAsFixed(2))
+        'bepoint': double.parse(breakevenpoint.toStringAsFixed(2))
       };
       tables.add(calculations);
     }
@@ -68,7 +69,6 @@ class _BreakevenState extends State<Breakeven> {
       results = tables;
       isCalculated = true;
     });
-
   }
 
   @override
@@ -82,123 +82,126 @@ class _BreakevenState extends State<Breakeven> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Breakeven Point'),
-        ),
-        body: Form(
-          key: _formKey,
+      appBar: AppBar(
+        title: Text('Breakeven Point'),
+      ),
+      body: Form(
+        key: _formKey,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
-              child: ListView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
-                    child: TextFormField(
-                      controller: fixedCostController,
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Enter Fixed Cost',
-                      ),
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter fixed cost';
-                        } else if (double.parse(value) < 0) {
-                          return 'Please enter appropriate fixed cost';
-                        } else {
-                          return null;
-                        }
-                      },
+            padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
+            child: ListView(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
+                  child: TextFormField(
+                    controller: fixedCostController,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Enter Fixed Cost',
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
-                    child: TextFormField(
-                      controller: variableCostController,
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Enter the variable cost per unit.',
-                      ),
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter the variable cost.';
-                        } else if (double.parse(value) < 0) {
-                          return 'Please enter appropriate variable cost';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
-                    child: TextFormField(
-                      controller: salesPriceController,
-                      decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: 'Enter the sales price per unit',
-                      ),
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter sales price.';
-                        } else if (double.parse(value) < 0) {
-                          return 'Please enter appropriate sales price.';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Validate returns true if the form is valid, or false otherwise.
-                      if (_formKey.currentState!.validate()) {
-                        fixedCost = double.parse(fixedCostController.text);
-                        variableCost = double.parse(variableCostController.text);
-                        salesPrice = double.parse(salesPriceController.text);
-                        breakevenpointCalc();
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter fixed cost';
+                      } else if (double.parse(value) < 0) {
+                        return 'Please enter appropriate fixed cost';
+                      } else {
+                        return null;
                       }
                     },
-                    child: const Text('Submit'),
                   ),
-                  (isCalculated)?ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        fixedCost = double.parse(fixedCostController.text);
-                        variableCost = double.parse(variableCostController.text);
-                        salesPrice = double.parse(salesPriceController.text);
-                        breakevenpointCalc();
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                            builder: (BuildContext context) => BreakevenChart(
-                                tables: results,
-                              )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
+                  child: TextFormField(
+                    controller: variableCostController,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Enter the variable cost per unit.',
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the variable cost.';
+                      } else if (double.parse(value) < 0) {
+                        return 'Please enter appropriate variable cost';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
+                  child: TextFormField(
+                    controller: salesPriceController,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      labelText: 'Enter the sales price per unit',
+                    ),
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter sales price.';
+                      } else if (double.parse(value) < 0) {
+                        return 'Please enter appropriate sales price.';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Validate returns true if the form is valid, or false otherwise.
+                    if (_formKey.currentState!.validate()) {
+                      fixedCost = double.parse(fixedCostController.text);
+                      variableCost = double.parse(variableCostController.text);
+                      salesPrice = double.parse(salesPriceController.text);
+                      breakevenpointCalc();
+                    }
+                  },
+                  child: const Text('Submit'),
+                ),
+                (isCalculated)
+                    ? ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            fixedCost = double.parse(fixedCostController.text);
+                            variableCost =
+                                double.parse(variableCostController.text);
+                            salesPrice =
+                                double.parse(salesPriceController.text);
+                            breakevenpointCalc();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      BreakevenChart(
+                                        tables: results,
+                                      )),
                             );
-                      }
-                    },
-                    child: const Text('Show breakeven graph'),
-                    ):const Text(''),
-                  Padding(
+                          }
+                        },
+                        child: const Text('Show breakeven graph'),
+                      )
+                    : const Text(''),
+                Padding(
                   padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
                   child: isCalculated
                       ? Column(children: [
                           Text('BreakEven Point: $bepoint'),
-                          
                         ])
                       : const Text(''),
                 )
-                ],
-              ),
+              ],
             ),
           ),
         ),
-        );
+      ),
+    );
   }
 }
 

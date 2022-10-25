@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class DisplayBCRatio extends StatefulWidget {
-  final List cashFlowAfterCalc;
-  final int? selectedProject;
-  DisplayBCRatio(
-      {Key? key,
-      required this.cashFlowAfterCalc,
-      required this.selectedProject})
-      : super(key: key);
+  // final List cashFlowAfterCalc;
+  // final int? selectedProject;
+  final Map<String, dynamic> data;
+  DisplayBCRatio({Key? key, required this.data}) : super(key: key);
 
   @override
   State<DisplayBCRatio> createState() => _DisplayBCRatioState();
@@ -59,20 +56,24 @@ class _DisplayBCRatioState extends State<DisplayBCRatio> {
                 ),
               ],
               rows: <DataRow>[
-                for (int i = 0; i < widget.cashFlowAfterCalc.length; i++)
+                for (int i = 0;
+                    i < widget.data['cashFlowAfterCalc'].length;
+                    i++)
                   DataRow(
                     cells: <DataCell>[
                       DataCell(
-                        Text('${widget.cashFlowAfterCalc[i]['index'] + 1}'),
+                        Text(
+                            '${widget.data['cashFlowAfterCalc'][i]['index'] + 1}'),
                       ),
                       DataCell(
-                        Text('${widget.cashFlowAfterCalc[i]['cost']}'),
+                        Text('${widget.data['cashFlowAfterCalc'][i]['cost']}'),
                       ),
                       DataCell(
-                        Text('${widget.cashFlowAfterCalc[i]['benefit']}'),
+                        Text(
+                            '${widget.data['cashFlowAfterCalc'][i]['benefit']}'),
                       ),
                       DataCell(
-                        Text('${widget.cashFlowAfterCalc[i]['B/C']}'),
+                        Text('${widget.data['cashFlowAfterCalc'][i]['B/C']}'),
                       ),
                     ],
                   )
@@ -80,7 +81,7 @@ class _DisplayBCRatioState extends State<DisplayBCRatio> {
             ),
             scrollDirection: Axis.horizontal),
         Text(
-            'Selected Project: ${widget.selectedProject == null ? 'Couldnt Select Project' : widget.selectedProject! + 1}')
+            'Selected Project: ${widget.data['selectedProject'] == null ? 'Couldnt Select Project' : widget.data['selectedProject'] + 1}')
       ]),
     );
   }

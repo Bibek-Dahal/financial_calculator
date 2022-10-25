@@ -156,7 +156,7 @@ class _HomeState extends State<Home> {
             child: GestureDetector(
               onTap: () => Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const Breakeven()),
+                MaterialPageRoute(builder: (context) => const BreakEven()),
               ),
               child: Container(
                 padding: const EdgeInsets.all(8),

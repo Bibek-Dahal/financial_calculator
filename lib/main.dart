@@ -1,3 +1,5 @@
+import 'package:financial_calc/router/route_names.dart';
+import 'package:financial_calc/router/routes.dart';
 import 'package:financial_calc/screens/compoundInterestCalc.dart';
 import 'package:financial_calc/screens/emiCalc.dart';
 import 'package:financial_calc/screens/home1.dart';
@@ -18,8 +20,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.black),
+          color: Color(0xFF4CBAD6), //<-- SEE HERE
+        ),
       ),
-      home: const HomePageWidget(),
+      initialRoute: RouteName.homeScreen,
+      onGenerateRoute: Routes.generateRoute,
+      // home: const HomePageWidget(),
     );
   }
 }
