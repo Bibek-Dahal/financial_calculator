@@ -1,3 +1,5 @@
+// import 'dart:js';
+
 import 'package:financial_calc/screens/breakeven.dart';
 import 'package:financial_calc/screens/depreciation.dart';
 import 'package:financial_calc/screens/displayBCratioResult.dart';
@@ -8,6 +10,8 @@ import 'package:financial_calc/screens/mirrCalc.dart';
 import 'package:financial_calc/screens/multipleBcRatio.dart';
 import 'package:financial_calc/screens/payBackCacl.dart';
 import 'package:financial_calc/screens/sensitivity.dart';
+import 'package:financial_calc/screens/sensitivitychart.dart';
+import 'package:financial_calc/screens/breakevenchart.dart';
 import 'package:flutter/material.dart';
 import '../screens/compoundInterestCalc.dart';
 import 'package:financial_calc/router/route_names.dart';
@@ -56,6 +60,18 @@ class Routes {
           print(settings.arguments);
           return DisplayBCRatio(
               data: settings.arguments as Map<String, dynamic>);
+        });
+
+      case RouteName.breakEvenChartScreen:
+        return MaterialPageRoute(builder:  (context) {
+          return BreakevenChart(
+            tables: settings.arguments as List );
+        });
+      
+      case RouteName.sensetivityChartScreen:
+        return MaterialPageRoute(builder:  (context) {
+          return SensitivityChart(
+            tables: settings.arguments as List<dynamic>);
         });
 
       default:

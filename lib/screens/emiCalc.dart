@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -172,8 +172,11 @@ class _EmiCalcState extends State<EmiCalc> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 3.0, bottom: 3.0),
-                  child: ElevatedButton(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0 ,0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children:[ ElevatedButton(
                     onPressed: () {
                       // Validate returns true if the form is valid, or false otherwise.
                       if (_formKey.currentState!.validate()) {
@@ -186,19 +189,178 @@ class _EmiCalcState extends State<EmiCalc> {
                         calculateEmi();
                       }
                     },
-                    child: const Text('Submit'),
+                    child: const Text('Calculate'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF4CBAD6),
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                      fixedSize: const Size(130,40),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
-                  child: isCalculated
-                      ? Column(children: [
-                          Text('Monthly Payment: $monthlyPayment'),
-                          Text('Annual Payment: $annualPayment'),
-                          Text('Total Payment: $totalPayment'),
-                        ])
-                      : const Text(''),
-                )
+                  ElevatedButton(
+                    onPressed: () {
+                      // Validate returns true if the form is valid, or false otherwise.
+                      Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (BuildContext context) =>
+                                        const EmiCalc(),
+                                  ),
+                                );
+                    },
+                    child: const Text('Reset'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(0xFF4CBAD6),
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                      fixedSize: const Size(130,40),
+                    ),
+                  ),
+                  ]
+                  )
+            ),
+                isCalculated
+                    ? const Align(
+                        alignment: AlignmentDirectional(-0.9, 0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                          child: Text(
+                            'RESULT',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFF0B0A0A),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      )
+                    : const Text(''), // Generated code for this Card Widget...
+                isCalculated
+                    ? Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 0),
+                        child: Card(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          color: Color(0xFFF5F5F5),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 10, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 10),
+                                        child: Text(
+                                          'Monthly EMI :',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF0B0A0A),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        '$monthlyPayment',
+                                        style: const TextStyle(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFF595F67),
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 10, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 10),
+                                        child: Text(
+                                          'Annual Payement :',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF0B0A0A),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        '$annualPayment',
+                                        style: const TextStyle(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFF595F67),
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0, 10, 0, 10),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 10),
+                                        child: Text(
+                                          'Total Payement:',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF0B0A0A),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        '$totalPayment',
+                                        style: const TextStyle(
+                                          fontFamily: 'Poppins',
+                                          color: Color(0xFF595F67),
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    : const Text('')
+
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 3.0, bottom: 3.0),
+                //   child: isCalculated
+                //       ? Column(children: [
+                //           Text('Monthly Payment: $monthlyPayment'),
+                //           Text('Annual Payment: $annualPayment'),
+                //           Text('Total Payment: $totalPayment'),
+                //         ])
+                //       : const Text(''),
+                // )
               ],
             )),
       ),
